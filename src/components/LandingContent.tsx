@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 
+import { CountUp } from "@/components/CountUp";
 import { KayniawluLogo } from "@/components/KayniawluLogo";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { Reveal } from "@/components/Reveal";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -101,7 +103,7 @@ export function LandingContent() {
             className="landing-pill landing-rise inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold !text-primary dark:!text-gold"
             style={{ animationDelay: "0.05s" }}
           >
-            <span>🇸🇳</span> {t("hero.badge")}
+            <span className="landing-wave">🇸🇳</span> {t("hero.badge")}
           </p>
           <h1
             className="landing-rise mt-8 max-w-4xl font-display text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl"
@@ -143,7 +145,7 @@ export function LandingContent() {
             <div className="landing-card overflow-hidden p-2">
               <div className="landing-demo-panel p-6 text-left md:p-8">
                 <div className="flex flex-wrap gap-4">
-                  {demoStats.map((s) => (
+                  {demoStats.map((s, i) => (
                     <div
                       key={s.l}
                       className="min-w-[120px] flex-1 rounded-[10px] border border-white/10 bg-white/10 p-4 backdrop-blur"
@@ -152,7 +154,7 @@ export function LandingContent() {
                         {t(s.l)}
                       </p>
                       <p className="mt-1 font-display text-2xl font-bold text-[#f4efe7]">
-                        {s.v}
+                        <CountUp value={s.v} delay={600 + i * 150} />
                       </p>
                     </div>
                   ))}
@@ -167,76 +169,83 @@ export function LandingContent() {
       </header>
 
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <h2 className="text-center font-display text-4xl font-bold md:text-5xl">
-          {t("features.title1")}{" "}
-          <span className="text-gold">{t("features.title2")}</span>
-        </h2>
+        <Reveal>
+          <h2 className="text-center font-display text-4xl font-bold md:text-5xl">
+            {t("features.title1")}{" "}
+            <span className="text-gold">{t("features.title2")}</span>
+          </h2>
+        </Reveal>
         <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {featureKeys.map((f, i) => (
-            <article
-              key={f.title}
-              className="landing-card p-8"
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              <span className="text-3xl">{f.emoji}</span>
-              <h3 className="mt-4 font-display text-2xl font-semibold">
-                {t(f.title)}
-              </h3>
-              <p className="mt-2 text-text/72">{t(f.desc)}</p>
-            </article>
+            <Reveal key={f.title} delay={i * 110}>
+              <article className="landing-card h-full p-8">
+                <span className="landing-feature-icon text-3xl">{f.emoji}</span>
+                <h3 className="mt-4 font-display text-2xl font-semibold">
+                  {t(f.title)}
+                </h3>
+                <p className="mt-2 text-text/72">{t(f.desc)}</p>
+              </article>
+            </Reveal>
           ))}
         </div>
       </section>
 
       <section id="offres" className="landing-pricing-section py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="text-center font-display text-4xl font-bold">
-            {t("plans.title")}
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-text/70">
-            {t("plans.subtitle")}
-          </p>
+          <Reveal>
+            <h2 className="text-center font-display text-4xl font-bold">
+              {t("plans.title")}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-center text-text/70">
+              {t("plans.subtitle")}
+            </p>
+          </Reveal>
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {plans.map((plan) => (
-              <article
-                key={plan.name}
-                className={`landing-card p-8 ${plan.highlight ? "landing-pricing-featured" : ""}`}
-              >
-                {plan.highlight && (
-                  <span className="mb-4 inline-block rounded-full bg-gold/22 px-3 py-1 text-xs font-bold text-primary dark:text-gold">
-                    {t("plans.popular")}
-                  </span>
-                )}
-                <h3 className="font-display text-2xl font-bold">{plan.name}</h3>
-                <p className="mt-4 font-display text-4xl font-bold text-gold">
-                  {plan.price}
-                </p>
-                <p className="font-ui text-sm text-text/56">{plan.period}</p>
-                <ul className="mt-6 space-y-3">
-                  {plan.items.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm font-medium">
-                      <span className="text-primary dark:text-gold">✓</span>{" "}
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+            {plans.map((plan, i) => (
+              <Reveal key={plan.name} delay={i * 130}>
+                <article
+                  className={`landing-card h-full p-8 ${plan.highlight ? "landing-pricing-featured" : ""}`}
+                >
+                  {plan.highlight && (
+                    <span className="mb-4 inline-block rounded-full bg-gold/22 px-3 py-1 text-xs font-bold text-primary dark:text-gold">
+                      {t("plans.popular")}
+                    </span>
+                  )}
+                  <h3 className="font-display text-2xl font-bold">{plan.name}</h3>
+                  <p className="mt-4 font-display text-4xl font-bold text-gold">
+                    {plan.price}
+                  </p>
+                  <p className="font-ui text-sm text-text/56">{plan.period}</p>
+                  <ul className="mt-6 space-y-3">
+                    {plan.items.map((item) => (
+                      <li key={item} className="flex gap-2 text-sm font-medium">
+                        <span className="landing-check text-primary dark:text-gold">
+                          ✓
+                        </span>{" "}
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-24 text-center">
-        <h2 className="font-display text-4xl font-bold md:text-5xl">
-          {t("cta.title")}
-        </h2>
-        <p className="mt-4 text-lg text-text/70">{t("cta.subtitle")}</p>
-        <Link
-          href={`${backofficeUrl}/register`}
-          className="landing-cta mt-10 inline-flex rounded-xl px-10 py-4 text-lg font-bold text-white"
-        >
-          {t("cta.button")}
-        </Link>
+        <Reveal>
+          <h2 className="font-display text-4xl font-bold md:text-5xl">
+            {t("cta.title")}
+          </h2>
+          <p className="mt-4 text-lg text-text/70">{t("cta.subtitle")}</p>
+          <Link
+            href={`${backofficeUrl}/register`}
+            className="landing-cta mt-10 inline-flex rounded-xl px-10 py-4 text-lg font-bold text-white"
+          >
+            {t("cta.button")}
+          </Link>
+        </Reveal>
       </section>
 
       <footer className="border-t border-divider py-10 text-center text-sm text-text/56">
