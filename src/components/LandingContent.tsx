@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { KayniawluLogo } from "@/components/KayniawluLogo";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useI18n } from "@/lib/i18n/context";
 
 const featureKeys = [
@@ -78,6 +79,7 @@ export function LandingContent() {
         <nav className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8">
           <KayniawluLogo compact />
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <LocaleSwitcher compact />
             <Link
               href={`${backofficeUrl}/register`}
@@ -96,7 +98,7 @@ export function LandingContent() {
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-6 pb-20 pt-8 text-center lg:pt-16">
           <p
-            className="landing-rise inline-flex items-center gap-2 rounded-full border border-primary/18 bg-white/72 px-4 py-1.5 text-sm font-semibold text-primary"
+            className="landing-pill landing-rise inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold !text-primary dark:!text-gold"
             style={{ animationDelay: "0.05s" }}
           >
             <span>🇸🇳</span> {t("hero.badge")}
@@ -106,7 +108,7 @@ export function LandingContent() {
             style={{ animationDelay: "0.12s" }}
           >
             {t("hero.title1")}
-            <span className="block bg-gradient-to-r from-primary via-gold to-gold-muted bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-primary via-gold to-gold-muted bg-clip-text text-transparent dark:from-[#f2d9a6] dark:via-gold dark:to-[#c9963f]">
               {t("hero.title2")}
             </span>
           </h1>
@@ -128,7 +130,7 @@ export function LandingContent() {
             </Link>
             <a
               href="#offres"
-              className="rounded-xl border border-text/15 bg-white/65 px-8 py-4 text-base font-semibold text-text backdrop-blur transition hover:border-primary/35 hover:text-primary"
+              className="landing-cta-ghost rounded-xl px-8 py-4 text-base font-semibold"
             >
               {t("hero.cta.plans")}
             </a>
@@ -139,23 +141,23 @@ export function LandingContent() {
             style={{ animationDelay: "0.4s" }}
           >
             <div className="landing-card overflow-hidden p-2">
-              <div className="rounded-[10px] bg-gradient-to-br from-primary to-[#0c4a3f] p-6 text-left text-background md:p-8">
+              <div className="landing-demo-panel p-6 text-left md:p-8">
                 <div className="flex flex-wrap gap-4">
                   {demoStats.map((s) => (
                     <div
                       key={s.l}
                       className="min-w-[120px] flex-1 rounded-[10px] border border-white/10 bg-white/10 p-4 backdrop-blur"
                     >
-                      <p className="font-ui text-xs font-medium uppercase tracking-wide text-background/65">
+                      <p className="font-ui text-xs font-medium uppercase tracking-wide text-[#f4efe7]/65">
                         {t(s.l)}
                       </p>
-                      <p className="mt-1 font-display text-2xl font-bold">
+                      <p className="mt-1 font-display text-2xl font-bold text-[#f4efe7]">
                         {s.v}
                       </p>
                     </div>
                   ))}
                 </div>
-                <p className="mt-6 font-ui text-sm text-background/76">
+                <p className="mt-6 font-ui text-sm text-[#f4efe7]/76">
                   {t("hero.demo.caption")}
                 </p>
               </div>
@@ -186,10 +188,7 @@ export function LandingContent() {
         </div>
       </section>
 
-      <section
-        id="offres"
-        className="bg-gradient-to-b from-transparent via-background/65 to-[#e7ddcf]/78 py-24"
-      >
+      <section id="offres" className="landing-pricing-section py-24">
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="text-center font-display text-4xl font-bold">
             {t("plans.title")}
@@ -204,7 +203,7 @@ export function LandingContent() {
                 className={`landing-card p-8 ${plan.highlight ? "landing-pricing-featured" : ""}`}
               >
                 {plan.highlight && (
-                  <span className="mb-4 inline-block rounded-full bg-gold/22 px-3 py-1 text-xs font-bold text-primary">
+                  <span className="mb-4 inline-block rounded-full bg-gold/22 px-3 py-1 text-xs font-bold text-primary dark:text-gold">
                     {t("plans.popular")}
                   </span>
                 )}
@@ -216,7 +215,8 @@ export function LandingContent() {
                 <ul className="mt-6 space-y-3">
                   {plan.items.map((item) => (
                     <li key={item} className="flex gap-2 text-sm font-medium">
-                      <span className="text-primary">✓</span> {item}
+                      <span className="text-primary dark:text-gold">✓</span>{" "}
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -239,12 +239,12 @@ export function LandingContent() {
         </Link>
       </section>
 
-      <footer className="border-t border-text/12 py-10 text-center text-sm text-text/56">
+      <footer className="border-t border-divider py-10 text-center text-sm text-text/56">
         <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
         <p className="mt-2">
           <Link
             href={`${backofficeUrl}/`}
-            className="font-semibold text-primary hover:underline"
+            className="font-semibold text-primary hover:underline dark:text-gold"
           >
             {t("footer.portal")}
           </Link>

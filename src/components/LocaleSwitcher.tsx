@@ -14,8 +14,8 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
   }, []);
 
   const shellClass = compact
-    ? "rounded-full border border-text/12 bg-white/72 px-3 py-1.5 text-xs font-semibold text-text/80 outline-none backdrop-blur transition hover:border-primary/28"
-    : "rounded-full border border-text/12 bg-white/72 px-4 py-2 text-sm font-semibold text-text/80 outline-none backdrop-blur transition hover:border-primary/28";
+    ? "landing-pill rounded-full px-3 py-1.5 text-xs font-semibold outline-none"
+    : "landing-pill rounded-full px-4 py-2 text-sm font-semibold outline-none";
 
   if (!mounted) {
     return (

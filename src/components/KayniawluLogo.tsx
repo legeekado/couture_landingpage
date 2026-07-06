@@ -22,7 +22,7 @@ export function KayniawluLogo({
         priority
       />
       <span className="flex flex-col leading-none">
-        <span className="font-display text-[1.35rem] font-semibold tracking-tight text-primary md:text-[1.6rem]">
+        <span className="font-display text-[1.35rem] font-semibold tracking-tight text-primary md:text-[1.6rem] dark:text-text">
           Kayñiawlu
         </span>
         {!compact && (
