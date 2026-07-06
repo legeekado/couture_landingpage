@@ -1,21 +1,30 @@
 import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Playfair_Display, Poppins } from "next/font/google";
+
+import { I18nProvider } from "@/lib/i18n/context";
+import { metaForLocale } from "@/lib/i18n/messages";
+
 import "./globals.css";
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-playfair",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "Kalmy — L'atelier de couture, version numérique",
-  description:
-    "SaaS pour couturiers au Sénégal : clients, mesures, commandes, équipe multi-points de vente.",
+  ...metaForLocale("fr"),
+  applicationName: "Kayñiawlu",
 };
 
 export default function RootLayout({
@@ -24,8 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${fraunces.variable} ${jakarta.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html
+      lang="fr"
+      className={`${playfair.variable} ${poppins.variable} ${inter.variable}`}
+    >
+      <body className="font-sans antialiased">
+        <I18nProvider>{children}</I18nProvider>
+      </body>
     </html>
   );
 }
