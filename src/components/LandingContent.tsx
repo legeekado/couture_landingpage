@@ -139,14 +139,14 @@ export function LandingContent() {
             style={{ animationDelay: "0.4s" }}
           >
             <div className="landing-card overflow-hidden p-2">
-              <div className="rounded-[10px] bg-gradient-to-br from-primary to-[#0d4d37] p-6 text-left text-[#f4efe7] md:p-8">
+              <div className="rounded-[10px] bg-gradient-to-br from-primary to-[#0c4a3f] p-6 text-left text-background md:p-8">
                 <div className="flex flex-wrap gap-4">
                   {demoStats.map((s) => (
                     <div
                       key={s.l}
                       className="min-w-[120px] flex-1 rounded-[10px] border border-white/10 bg-white/10 p-4 backdrop-blur"
                     >
-                      <p className="font-ui text-xs font-medium uppercase tracking-wide text-[#f4efe7]/65">
+                      <p className="font-ui text-xs font-medium uppercase tracking-wide text-background/65">
                         {t(s.l)}
                       </p>
                       <p className="mt-1 font-display text-2xl font-bold">
@@ -155,7 +155,7 @@ export function LandingContent() {
                     </div>
                   ))}
                 </div>
-                <p className="mt-6 font-ui text-sm text-[#f4efe7]/76">
+                <p className="mt-6 font-ui text-sm text-background/76">
                   {t("hero.demo.caption")}
                 </p>
               </div>
@@ -188,7 +188,7 @@ export function LandingContent() {
 
       <section
         id="offres"
-        className="bg-gradient-to-b from-transparent via-[#efe8dd]/65 to-[#e7ddcf]/78 py-24"
+        className="bg-gradient-to-b from-transparent via-background/65 to-[#e7ddcf]/78 py-24"
       >
         <div className="mx-auto max-w-6xl px-6">
           <h2 className="text-center font-display text-4xl font-bold">

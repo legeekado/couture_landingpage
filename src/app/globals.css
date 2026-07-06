@@ -1,22 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #0f5b40;
-  --gold: #dba639;
-  --gold-muted: #b8a75c;
-  --bg: #f4efe7;
+  --primary: #0f5b4c;
+  --secondary: #d8a75c;
+  --background: #f4efe7;
+  --surface: #ffffff;
   --text: #2d2d2d;
-  --sage: #7a9d83;
-  --deep-forest: #0a3f2d;
+  --text-secondary: #7a8d83;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --info: #2563eb;
 }
 
 @theme inline {
   --color-primary: var(--primary);
-  --color-gold: var(--gold);
-  --color-gold-muted: var(--gold-muted);
-  --color-bg: var(--bg);
+  --color-secondary: var(--secondary);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-text: var(--text);
-  --color-sage: var(--sage);
+  --color-text-secondary: var(--text-secondary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  /* Legacy aliases for existing utility classes */
+  --color-gold: var(--secondary);
+  --color-gold-muted: var(--secondary);
+  --color-bg: var(--background);
+  --color-sage: var(--text-secondary);
   --font-display: var(--font-playfair), ui-serif, Georgia, serif;
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-ui: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -27,7 +39,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: var(--background);
   color: var(--text);
   font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 }
@@ -37,9 +49,9 @@ body {
   min-height: 94vh;
   overflow: hidden;
   background:
-    radial-gradient(circle at 14% 18%, rgba(15, 91, 64, 0.28), transparent 45%),
-    radial-gradient(circle at 88% 12%, rgba(219, 166, 57, 0.24), transparent 42%),
-    linear-gradient(145deg, #fbf7f1 0%, var(--bg) 42%, #ece4d8 100%);
+    radial-gradient(circle at 14% 18%, rgba(15, 91, 76, 0.28), transparent 45%),
+    radial-gradient(circle at 88% 12%, rgba(216, 167, 92, 0.24), transparent 42%),
+    linear-gradient(145deg, #fbf7f1 0%, var(--background) 42%, #ece4d8 100%);
 }
 
 .landing-hero::before {
@@ -53,8 +65,8 @@ body {
       140deg,
       transparent 0,
       transparent 24px,
-      rgba(184, 167, 92, 0.08) 24px,
-      rgba(184, 167, 92, 0.08) 26px
+      rgba(216, 167, 92, 0.08) 24px,
+      rgba(216, 167, 92, 0.08) 26px
     );
   background-size: 22px 22px, 100% 100%;
   mix-blend-mode: soft-light;
@@ -83,36 +95,36 @@ body {
   border: 1px solid rgba(45, 45, 45, 0.08);
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(12px);
-  box-shadow: 0 16px 42px rgba(12, 56, 41, 0.1);
+  box-shadow: 0 16px 42px rgba(12, 56, 49, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .landing-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 22px 48px rgba(12, 56, 41, 0.16);
+  box-shadow: 0 22px 48px rgba(12, 56, 49, 0.16);
 }
 
 .landing-pricing-featured {
-  border-color: rgba(219, 166, 57, 0.48);
+  border-color: rgba(216, 167, 92, 0.48);
   background: linear-gradient(
     165deg,
     rgba(255, 255, 255, 0.95) 0%,
-    rgba(219, 166, 57, 0.15) 100%
+    rgba(216, 167, 92, 0.15) 100%
   );
   transform: scale(1.015);
 }
 
 .landing-cta {
   border: 1px solid transparent;
-  background: linear-gradient(135deg, #116346 0%, var(--primary) 100%);
-  box-shadow: 0 14px 30px rgba(15, 91, 64, 0.32);
+  background: linear-gradient(135deg, #117a62 0%, var(--primary) 100%);
+  box-shadow: 0 14px 30px rgba(15, 91, 76, 0.32);
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .landing-cta:hover {
   transform: translateY(-2px);
-  border-color: rgba(219, 166, 57, 0.7);
-  box-shadow: 0 18px 38px rgba(15, 91, 64, 0.4);
+  border-color: rgba(216, 167, 92, 0.7);
+  box-shadow: 0 18px 38px rgba(15, 91, 76, 0.4);
   color: #fff8eb;
 }
 
@@ -123,8 +135,8 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(219, 166, 57, 0.56),
-    rgba(184, 167, 92, 0.5),
+    rgba(216, 167, 92, 0.56),
+    rgba(216, 167, 92, 0.5),
     transparent
   );
   transform: rotate(-7deg);
@@ -142,7 +154,7 @@ body {
 
 .landing-gold-ring {
   position: absolute;
-  border: 1px solid rgba(219, 166, 57, 0.3);
+  border: 1px solid rgba(216, 167, 92, 0.3);
   border-radius: 999px;
   filter: blur(0.2px);
 }
@@ -155,8 +167,8 @@ body {
   border-radius: 999px;
   background: radial-gradient(
     circle,
-    rgba(15, 91, 64, 0.28) 0%,
-    rgba(15, 91, 64, 0.08) 34%,
+    rgba(15, 91, 76, 0.28) 0%,
+    rgba(15, 91, 76, 0.08) 34%,
     transparent 72%
   );
   filter: blur(8px);
