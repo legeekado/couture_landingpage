@@ -25,6 +25,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   ...metaForLocale("fr"),
   applicationName: "Kayñiawlu",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/kayniawlu-mark.svg",
+  },
 };
 
 export default function RootLayout({
