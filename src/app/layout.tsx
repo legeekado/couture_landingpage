@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Playfair_Display, Poppins } from "next/font/google";
 
 import { I18nProvider } from "@/lib/i18n/context";
@@ -43,14 +44,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${playfair.variable} ${poppins.variable} ${inter.variable}`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('kalmy_theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`,
-          }}
-        />
-      </head>
       <body className="font-sans antialiased">
+        <Script src="/kalmy-init.js" strategy="beforeInteractive" />
         <ThemeProvider>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>

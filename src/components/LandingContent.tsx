@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { CountUp } from "@/components/CountUp";
 import { KayniawluLogo } from "@/components/KayniawluLogo";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { PricingSection } from "@/components/PricingSection";
+import { ProductShowcaseSection } from "@/components/ProductShowcaseSection";
 import { Reveal } from "@/components/Reveal";
+import { StoreDownloadButtons } from "@/components/StoreDownloadButtons";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -23,48 +27,61 @@ const demoStats = [
   { l: "hero.demo.fittings", v: "5" },
 ] as const;
 
+function LandingNav({ backofficeUrl }: { backofficeUrl: string }) {
+  const { t } = useI18n();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <nav
+      className={`landing-nav-sticky ${scrolled ? "landing-nav-scrolled" : ""}`}
+    >
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 md:py-5">
+        <KayniawluLogo compact />
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <LocaleSwitcher compact />
+          <a
+            href="#produit"
+            className="hidden rounded-full px-4 py-2.5 text-sm font-semibold text-text/75 transition hover:text-text md:inline"
+          >
+            {t("nav.product")}
+          </a>
+          <Link
+            href={`${backofficeUrl}/register`}
+            className="hidden rounded-full px-5 py-2.5 text-sm font-semibold text-text/75 transition hover:text-text sm:inline"
+          >
+            {t("nav.createWorkshop")}
+          </Link>
+          <Link
+            href={`${backofficeUrl}/`}
+            className="landing-cta rounded-full px-6 py-3 text-sm font-bold text-white"
+          >
+            {t("nav.signIn")}
+          </Link>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
 export function LandingContent() {
   const { t } = useI18n();
   const backofficeUrl =
     process.env.NEXT_PUBLIC_BACKOFFICE_URL ?? "http://localhost:3000";
 
-  const plans = [
-    {
-      name: t("plans.free.name"),
-      price: t("plans.free.price"),
-      period: t("plans.free.period"),
-      highlight: false,
-      items: [t("plans.free.1"), t("plans.free.2"), t("plans.free.3")],
-    },
-    {
-      name: t("plans.pro.name"),
-      price: t("plans.pro.price"),
-      period: t("plans.pro.period"),
-      highlight: true,
-      items: [
-        t("plans.pro.1"),
-        t("plans.pro.2"),
-        t("plans.pro.3"),
-        t("plans.pro.4"),
-      ],
-    },
-    {
-      name: t("plans.enterprise.name"),
-      price: t("plans.enterprise.price"),
-      period: t("plans.enterprise.period"),
-      highlight: false,
-      items: [
-        t("plans.enterprise.1"),
-        t("plans.enterprise.2"),
-        t("plans.enterprise.3"),
-        t("plans.enterprise.4"),
-      ],
-    },
-  ];
-
   return (
     <div>
+      <LandingNav backofficeUrl={backofficeUrl} />
+
       <header className="landing-hero flex flex-col">
+        <div className="relative min-h-0 flex-1 overflow-hidden">
         <div className="landing-thread top-[16%] left-[-10%]" aria-hidden />
         <div className="landing-thread top-[44%] left-[-20%] opacity-65" aria-hidden />
         <div className="landing-thread top-[68%] left-[-12%] opacity-45" aria-hidden />
@@ -78,27 +95,7 @@ export function LandingContent() {
           aria-hidden
         />
 
-        <nav className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-8">
-          <KayniawluLogo compact />
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LocaleSwitcher compact />
-            <Link
-              href={`${backofficeUrl}/register`}
-              className="hidden rounded-full px-5 py-2.5 text-sm font-semibold text-text/75 transition hover:text-text sm:inline"
-            >
-              {t("nav.createWorkshop")}
-            </Link>
-            <Link
-              href={`${backofficeUrl}/`}
-              className="landing-cta rounded-full px-6 py-3 text-sm font-bold text-white"
-            >
-              {t("nav.signIn")}
-            </Link>
-          </div>
-        </nav>
-
-        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-6 pb-20 pt-8 text-center lg:pt-16">
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-6 pb-20 pt-12 text-center lg:pt-20">
           <p
             className="landing-pill landing-rise inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold !text-primary dark:!text-gold"
             style={{ animationDelay: "0.05s" }}
@@ -138,6 +135,12 @@ export function LandingContent() {
             </a>
           </div>
 
+          <Reveal delay={320}>
+            <div className="landing-rise mt-8 flex flex-col items-center gap-2">
+              <StoreDownloadButtons />
+            </div>
+          </Reveal>
+
           <div
             className="landing-float landing-rise relative mt-16 w-full max-w-4xl"
             style={{ animationDelay: "0.4s" }}
@@ -166,6 +169,7 @@ export function LandingContent() {
             </div>
           </div>
         </div>
+        </div>
       </header>
 
       <section className="mx-auto max-w-6xl px-6 py-24">
@@ -190,48 +194,9 @@ export function LandingContent() {
         </div>
       </section>
 
-      <section id="offres" className="landing-pricing-section py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <Reveal>
-            <h2 className="text-center font-display text-4xl font-bold">
-              {t("plans.title")}
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-text/70">
-              {t("plans.subtitle")}
-            </p>
-          </Reveal>
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {plans.map((plan, i) => (
-              <Reveal key={plan.name} delay={i * 130}>
-                <article
-                  className={`landing-card h-full p-8 ${plan.highlight ? "landing-pricing-featured" : ""}`}
-                >
-                  {plan.highlight && (
-                    <span className="mb-4 inline-block rounded-full bg-gold/22 px-3 py-1 text-xs font-bold text-primary dark:text-gold">
-                      {t("plans.popular")}
-                    </span>
-                  )}
-                  <h3 className="font-display text-2xl font-bold">{plan.name}</h3>
-                  <p className="mt-4 font-display text-4xl font-bold text-gold">
-                    {plan.price}
-                  </p>
-                  <p className="font-ui text-sm text-text/56">{plan.period}</p>
-                  <ul className="mt-6 space-y-3">
-                    {plan.items.map((item) => (
-                      <li key={item} className="flex gap-2 text-sm font-medium">
-                        <span className="landing-check text-primary dark:text-gold">
-                          ✓
-                        </span>{" "}
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProductShowcaseSection backofficeUrl={backofficeUrl} />
+
+      <PricingSection backofficeUrl={backofficeUrl} />
 
       <section className="mx-auto max-w-4xl px-6 py-24 text-center">
         <Reveal>
