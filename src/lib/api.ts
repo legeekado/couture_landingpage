@@ -21,7 +21,7 @@ export interface PublicOffer {
 export async function fetchPublicOffers(): Promise<PublicOffer[]> {
   const response = await fetch(`${API_HOST}/api/public/offers`, {
     headers: { Accept: "application/json" },
-    next: { revalidate: 60 },
+    cache: "no-store",
   });
 
   if (!response.ok) {
